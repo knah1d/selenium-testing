@@ -9,9 +9,6 @@ import org.openqa.selenium.support.ui.ExpectedConditions;
 
 import java.util.List;
 
-/**
- * Page object representing the card detail page
- */
 public class CardDetailPage extends BasePage {
     
     @FindBy(css = ".card-detail-title")
@@ -44,31 +41,18 @@ public class CardDetailPage extends BasePage {
     @FindBy(css = ".close-dialog")
     private WebElement closeDialogButton;
     
-    /**
-     * Constructor
-     * 
-     * @param driver WebDriver instance
-     */
+
     public CardDetailPage(WebDriver driver) {
         super(driver);
         PageFactory.initElements(driver, this);
     }
     
-    /**
-     * Get card title
-     * 
-     * @return Card title
-     */
+
     public String getCardTitle() {
         return wait.until(ExpectedConditions.visibilityOf(cardTitle)).getText();
     }
     
-    /**
-     * Add description to card
-     * 
-     * @param description Description to add
-     * @return CardDetailPage instance
-     */
+    
     public CardDetailPage addDescription(String description) {
         clickElement(descriptionEditButton);
         enterText(descriptionTextarea, description);
@@ -77,38 +61,23 @@ public class CardDetailPage extends BasePage {
         return this;
     }
     
-    /**
-     * Get card description
-     * 
-     * @return Card description
-     */
+
     public String getDescription() {
         return wait.until(ExpectedConditions.visibilityOf(cardDescription)).getText();
     }
     
-    /**
-     * Add label to card
-     * 
-     * @param labelName Label name
-     * @return CardDetailPage instance
-     */
+
     public CardDetailPage addLabel(String labelName) {
         clickElement(addLabelButton);
         enterText(labelInput, labelName);
         clickElement(saveLabelButton);
         
-        // Wait for label to appear
         wait.until(ExpectedConditions.numberOfElementsToBeMoreThan(
             By.cssSelector(".card-labels .label"), cardLabels.size() - 1));
         return this;
     }
     
-    /**
-     * Check if card has label
-     * 
-     * @param labelName Label name
-     * @return true if card has label, false otherwise
-     */
+
     public boolean hasLabel(String labelName) {
         for (WebElement label : cardLabels) {
             if (label.getText().equals(labelName)) {
@@ -118,11 +87,7 @@ public class CardDetailPage extends BasePage {
         return false;
     }
     
-    /**
-     * Close card detail dialog
-     * 
-     * @return BoardPage instance
-     */
+
     public BoardPage closeDialog() {
         clickElement(closeDialogButton);
         return new BoardPage(driver);
