@@ -108,7 +108,3 @@ public void testCreateBoardWithLists() {
     assertEquals("Done", boardPage.getListName(2));
 }
 ```
-
-## Author
-
-Your Name
